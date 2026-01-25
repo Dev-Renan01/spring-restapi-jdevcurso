@@ -1,57 +1,47 @@
 package com.devrenan.jdevcurso.controller;
 
 import com.devrenan.jdevcurso.model.Usuario;
-import com.devrenan.jdevcurso.repository.UsuarioRepository;
+import com.devrenan.jdevcurso.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/usuario")
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuarioService usuarioService;
 
-    @GetMapping(produces = "application/json")
-    @ResponseStatus(value = HttpStatus.OK)
-    public List<Usuario>index(){
-        Usuario usuario = new Usuario();
+    @PostMapping(value = "/salvar")
+    @ResponseStatus(HttpStatus.OK)
+    public Usuario salvar(@RequestBody Usuario usuario){
+        return usuarioService.salvar(usuario);
+    }
 
-        usuario.setNome("Thiago");
-        usuario.setLogin("Thxxx");
-        usuario.setSenha(1234);
+    @PostMapping(value = "/listar")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Usuario> listar(){
+        return usuarioService.listarTodos();
+    }
 
-        Usuario usuario1 = new Usuario();
+    @PostMapping(value = "/listarid")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<Usuario> listarId(long id){
+        return usuarioService.listarId(id);
+    }
 
-        usuario1.setNome("Suany");
-        usuario1.setLogin("Suxxx");
-        usuario1.setSenha(1234);
+    @PostMapping(value = "/atualizar")
+    @ResponseStatus(HttpStatus.OK)
+    public Usuario atualizar(@RequestBody Usuario usuario){
+        return usuarioService.atualizar(usuario);
+    }
 
-        Usuario usuario2 = new Usuario();
-
-        usuario2.setNome("Regis");
-        usuario2.setLogin("Rexxx");
-        usuario2.setSenha(1234);
-
-        Usuario usuario3 = new Usuario();
-
-
-        usuario3.setNome("Fabio");
-        usuario3.setLogin("Faxxx");
-        usuario3.setSenha(1234);
-
-        List<Usuario> usuarios = new ArrayList<Usuario>();
-        usuarios.add(usuario);
-        usuarios.add(usuario1);
-        usuarios.add(usuario2);
-        usuarios.add(usuario3);
-
-        usuarioRepository.saveAll(usuarios);
-
-        return usuarios;
+    @PostMapping(value = "/deletar")
+    @ResponseStatus(HttpStatus.OK)
+    public void deletarId(Long id){
+        usuarioService.deletar(id);
     }
 }
