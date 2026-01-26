@@ -1,11 +1,10 @@
 package com.devrenan.jdevcurso.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Usuario implements Serializable{
@@ -19,6 +18,9 @@ public class Usuario implements Serializable{
     private String nome;
     private String login;
     private int senha;
+
+    @OneToMany(mappedBy = "usuario", orphanRemoval = true)
+    private List<Telefone> telefones = new ArrayList<>();
 
     public Long getId() {
         return id;

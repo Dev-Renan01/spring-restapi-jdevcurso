@@ -15,31 +15,36 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    public String index(){
+        return "Olá, seja muito bem vindo(a) ao meu projeto Spring Boot!";
+    }
+
+
     @PostMapping(value = "/salvar")
     @ResponseStatus(HttpStatus.OK)
     public Usuario salvar(@RequestBody Usuario usuario){
         return usuarioService.salvar(usuario);
     }
 
-    @PostMapping(value = "/listar")
+    @GetMapping(value = "/listar")
     @ResponseStatus(HttpStatus.OK)
     public List<Usuario> listar(){
         return usuarioService.listarTodos();
     }
 
-    @PostMapping(value = "/listarid")
+    @GetMapping(value = "/listarid/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Usuario> listarId(long id){
+    public Optional<Usuario> listarId(@PathVariable long id){
         return usuarioService.listarId(id);
     }
 
-    @PostMapping(value = "/atualizar")
+    @PutMapping(value = "/atualizar")
     @ResponseStatus(HttpStatus.OK)
     public Usuario atualizar(@RequestBody Usuario usuario){
         return usuarioService.atualizar(usuario);
     }
 
-    @PostMapping(value = "/deletar")
+    @DeleteMapping(value = "/deletar")
     @ResponseStatus(HttpStatus.OK)
     public void deletarId(Long id){
         usuarioService.deletar(id);
