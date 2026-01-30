@@ -1,7 +1,7 @@
 package com.devrenan.jdevcurso.controller;
 
-import com.devrenan.jdevcurso.model.Usuario;
-import com.devrenan.jdevcurso.service.UsuarioService;
+import com.devrenan.jdevcurso.model.Telefone;
+import com.devrenan.jdevcurso.service.TelefoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,37 +13,35 @@ import java.util.Optional;
 public class TelefoneController {
 
     @Autowired
-    private UsuarioService usuarioService;
-
-    
-    @PostMapping(value = "/salvar")
-    @ResponseStatus(HttpStatus.OK)
-    public Usuario salvar(@RequestBody Usuario usuario){
-        return usuarioService.salvar(usuario);
-    }
+    private TelefoneService telefoneService;
 
     @GetMapping(value = "/listar")
     @ResponseStatus(HttpStatus.OK)
-    public List<Usuario> listar(){
-        return usuarioService.listarTodos();
+    public List<Telefone> listar(){
+        return telefoneService.listarTodos();
     }
 
-    @GetMapping(value = "/listarid/{id}")
+    @GetMapping(value = "/listar/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Usuario> listarId(@PathVariable long id){
-        return usuarioService.listarId(id);
+    public Optional<Telefone> listarId(@PathVariable Long id){
+        return telefoneService.listarId(id);
+    } 
+
+    @PostMapping(value = "/salvar")
+    @ResponseStatus(HttpStatus.OK)
+    public Telefone salvar(@RequestBody Telefone telefone){
+        return telefoneService.salvar(telefone);
     }
 
     @PutMapping(value = "/atualizar")
     @ResponseStatus(HttpStatus.OK)
-    public Usuario atualizar(@RequestBody Usuario usuario){
-        return usuarioService.atualizar(usuario);
+    public Telefone atualizar(Telefone telefone){
+        return telefoneService.atualizar(telefone);
     }
 
-    @DeleteMapping(value = "/deletar")
+    @DeleteMapping(value = "/deletar/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deletarId(Long id){
-        usuarioService.deletar(id);
+    public void deletar(Long id){
+        telefoneService.deletar(id);
     }
-}
 }
