@@ -12,6 +12,7 @@ public class Telefone {
     private String numero;
 
     @ManyToOne
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Usuario usuario;
 
     public Long getId() {

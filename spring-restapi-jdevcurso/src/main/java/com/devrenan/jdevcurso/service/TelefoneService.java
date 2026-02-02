@@ -1,6 +1,7 @@
 package com.devrenan.jdevcurso.service;
 
 import com.devrenan.jdevcurso.model.Telefone;
+import com.devrenan.jdevcurso.model.Usuario;
 import com.devrenan.jdevcurso.repository.TelefoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,8 @@ public class TelefoneService {
         return telefoneRepository.findById(id);
     }
 
-    public Telefone salvar(Telefone telefone){
+    public Telefone salvar(Telefone telefone, Usuario usuario){
+        telefone.setUsuario(usuario);
         return telefoneRepository.save(telefone);
     }
 
